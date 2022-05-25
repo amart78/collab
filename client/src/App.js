@@ -1,25 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import AuthenticatedApp from './AuthenticatedApp'
+import UnauthenticatedApp from './UnauthenticatedApp'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [currentUser, setCurrentUser] = useState(null)
+  const [authChecked, setAuthChecked] = useState(false)
 
-export default App;
+  useEffect(() => {
+    fetch('/me', {
+      credentials: 'include'
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then((user) => {
+            setCurrentUser(user)
+            setAuthChecked(true)
+          })
+        } else {
+          setAuthChecked(true)
+        }
+      })
+  }, [])
+
+ 
+  if(currentUser && authChecked) { 
+    return(
+      <div>
+        <Routes>
+            <Route path="*" element=
+              { <AuthenticatedApp setCurrentUser={setCurrentUser} currentUser={currentUser}/> }
+            />
+        </Routes>
+      </div>
+      )
+    } else {
+      return (
+      <div>
+        <Routes>
+            <Route exact path="*" element=
+              {<UnauthenticatedApp setCurrentUser={setCurrentUser}/>}
+            />
+        </Routes>
+      </div>
+      )
+    }
+}
+    export default App;
+//   return (
+//     <div>
+//       <Routes>
+//       <Route>
+//         { currentUser ? (
+//             <AuthenticatedApp
+//               setCurrentUser={setCurrentUser}
+//               currentUser={currentUser}
+//             />
+//           ) : (
+//             <UnauthenticatedApp
+//               setCurrentUser={setCurrentUser}
+//             />
+//           )
+//         }
+//       </Route>
+//       </Routes>
+//     </div>
+//   )
+// }
+
+
