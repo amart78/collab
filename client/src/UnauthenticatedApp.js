@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 
 function UnauthenticatedApp({ setCurrentUser }) {
+
   return (
   
       <Routes>
@@ -20,4 +21,5 @@ function UnauthenticatedApp({ setCurrentUser }) {
   )
 }
 
-export default UnauthenticatedApp;
+
+export default UnauthenticatedApp

@@ -4,11 +4,11 @@ class UserTasksController < ApplicationController
   end
 
   def create
-    user_task = current_user.user_tasks.new(user_task_params)
+    user_task = current_user.user_tasks.build(user_task_params)
     if user_task.save
       render json: user_task, status: :created
     else
-      render json: user_task.errors, status: :unprocessable_entity
+      render json: user_task.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -17,7 +17,7 @@ class UserTasksController < ApplicationController
     if user_task.update(user_task_params)
       render json: user_task, status: :ok
     else
-      render json: user_task.errors, status: :unprocessable_entity
+      render json: user_task.full_messages, status: :unprocessable_entity
     end
   end
 

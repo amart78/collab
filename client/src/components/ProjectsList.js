@@ -23,7 +23,7 @@ function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
       <h1>Projects</h1>
       {projects.map(project => (
         <p key={project.id}>
-          <Link to={`my-projects/${project.id}`}>
+          <Link to={`${project.id}`}>
             {project.name}
           </Link> 
             --- {leaveOrJoinButton(project)}

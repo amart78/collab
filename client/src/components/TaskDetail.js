@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-function TaskDetail({ taskId, removeAssignmentToTask, assignToTask, cancelTask }) {
+function TaskDetail({ removeAssignmentToTask, assignToTask, cancelTask }) {
   const [task, setTask] = useState(null)
   const navigate = useNavigate();
+  const taskId = useParams().taskId;
 
   const fetchTaskCallback = useCallback(
     () => {
@@ -62,7 +63,7 @@ function TaskDetail({ taskId, removeAssignmentToTask, assignToTask, cancelTask }
     }
   }
   
-  // if(!task) { return <div></div>}
+  if(!task) { return <div></div>}
   return (
     <div>
       <h1>{task.title}</h1>

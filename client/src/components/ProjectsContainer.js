@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route,  } from 'react-router-dom'
+import {useParams, Routes, Route,  } from 'react-router-dom'
 import ProjectsList from './ProjectsList'
 import ProjectDetail from './ProjectDetail'
 
@@ -16,22 +16,14 @@ function ProjectsContainer() {
 
 
   const leaveProject = (projectId) => {
-    let userProjectId = projects.find(project => project.id === projectId).user_project.id
-    return fetch(`/user_projects/${userProjectId}`, {
+    return fetch(`/user_projects/${projectId}`, {
       method: 'DELETE',
       credentials: 'include'
     })
       .then(res => {
         if (res.ok) {
-          const updatedProjects = projects.map(project => {
-            if (project.id === projectId) {
-              return {
-                ...project,
-                user_project: undefined
-              }
-            } else {
-              return project
-            }
+          const updatedProjects = projects.filter(project => {
+            return project.id !== projectId;
           })
           setProjects(updatedProjects)
         }
@@ -55,19 +47,6 @@ function ProjectsContainer() {
         } else {
           return res.json().then(errors => Promise.reject(errors))
         }
-      })
-      .then(userProject => {
-        const updatedProjects = projects.map(project => {
-          if (project.id === projectId) {
-            return {
-              ...project,
-              user_project: userProject
-            }
-          } else {
-            return project
-          }
-        })
-        setProjects(updatedProjects)
       })
   }
 
@@ -95,9 +74,7 @@ function ProjectsContainer() {
   return (
       <div>
         <Routes>
-          
-          <Route
-            exact path="/my-projects/*" element={
+          <Route path="/" element={
         
               <ProjectsList
                 projects={projects}
@@ -109,17 +86,13 @@ function ProjectsContainer() {
           />
 
           <Route
-            exact path="/my-projects/:id"
-            render={({ match }) => {
-              return (
-                
+            path=":projectId"
+            element={
                 <ProjectDetail
-                  projectId={match.params.id}
                   leaveProject={leaveProject}
                   joinProject={joinProject}
                 />
-              )
-            }}
+            }
           />
 
         </Routes>

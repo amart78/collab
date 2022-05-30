@@ -79,9 +79,7 @@ function TasksContainer() {
         }
       })
       .then(userTask => {
-        // if the task is the one we just assign'd to
-        // add a user_task property in state and set
-        // it to the userTask; if not, leave it as is
+ 
         const updatedTasks = tasks.map((task) => {
           if (task.id === taskId) {
             return {
@@ -100,7 +98,7 @@ function TasksContainer() {
     return fetch("/tasks", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       credentials: 'include',
       body: JSON.stringify(formData)
@@ -121,7 +119,7 @@ function TasksContainer() {
       <div>
         <Routes>
           <Route
-            exact path="/my-tasks/*" element=
+            exact path="/*" element=
               {<TasksList
                 tasks={tasks}
                 projects={projects}
@@ -133,17 +131,14 @@ function TasksContainer() {
           />
           
           <Route
-            exact path="/my-tasks/:id"
-            render={({ match }) => {
-              return (
+            exact path="/:id"
+            element={
               <TaskDetail
-                taskId={match.params.id}
                 cancelTask={cancelTask}
                 removeAssignmentToTask={removeAssignmentToTask}
                 assignToTask={assignToTask}
               />
-              )
-            }}
+              }
           />
 
         </Routes>

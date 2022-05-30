@@ -6,7 +6,7 @@ function TasksList({ tasks, projects, removeAssignmentToTask, cancelTask, assign
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [dueDate, setDueDate] = useState('')
-  const [projectName, setProjectName] = useState('')
+  const [projectId, setProjectId] = useState(0)
 
 
   const assignOrCancelButton = (task) => {
@@ -28,13 +28,13 @@ function TasksList({ tasks, projects, removeAssignmentToTask, cancelTask, assign
     createTask({
       title,
       description,
-      dueDate,
-      project_name: projectName
+      due_date: dueDate,
+      project_id: parseInt(projectId),
     })
     setTitle('')
     setDescription('')
     setDueDate('')
-    setProjectName('')
+    setProjectId(0)
   }
   
   return (
@@ -76,8 +76,25 @@ function TasksList({ tasks, projects, removeAssignmentToTask, cancelTask, assign
             name="due_date"
           />
         </p>
-        <p>
-          <label htmlFor="project_name">Project Name </label>
+        <select
+            value={projectId}
+            onChange={(e) => setProjectId(e.target.value)}
+          ><div>For which Project? </div>
+          {/* Default Dropdown Choice */}
+
+          {projects.map(project=>{
+            return(
+              <option value={project.id} >
+                {project.name}
+              </option>)
+
+          })}
+
+        </select> 
+
+        <input type="submit" onClick={handleSubmit} value="YAY!" />
+        {/* <p> */}
+          {/* <label htmlFor="project_name">Project Name </label>
           <input
             type="text"
             name="project_name"
@@ -89,7 +106,7 @@ function TasksList({ tasks, projects, removeAssignmentToTask, cancelTask, assign
             {projects.map(project => <option>{project.name}</option>)}
           </datalist>
         </p>
-        {" "}<button type="submit">Add Task</button>
+        {" "}<button type="submit">Add Task</button> */}
       </form>
     </div>
   )

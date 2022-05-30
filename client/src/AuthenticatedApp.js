@@ -1,7 +1,7 @@
 import './App.css';
 import ProjectsContainer from './components/ProjectsContainer'
 import TasksContainer from './components/TasksContainer'
-import { Routes, Route, NavLink, useNavigate,  } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate,  } from 'react-router-dom'
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
   const navigate = useNavigate()
@@ -22,16 +22,12 @@ function AuthenticatedApp({ currentUser, setCurrentUser }) {
       <div className="App">
         <nav>
           <span>
-            <NavLink to="/my-projects">Projects</NavLink>{" - "}
-            <NavLink to="/my-tasks">Tasks</NavLink>
+            <Link to="my-projects">Projects</Link>{" - "}
+            <Link to="my-tasks">Tasks</Link>
           </span>
           <span>Logged in as {currentUser.name} <button onClick={handleLogout}>Logout</button></span>
         </nav>
-        <ProjectsContainer />
-        <TasksContainer />
-
         <Routes>
-
           <Route path="/my-projects/*" element=
             {<ProjectsContainer />}
           />

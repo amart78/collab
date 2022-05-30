@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
-function ProjectDetail({ projectId, leaveProject, joinProject }) {
+function ProjectDetail({ leaveProject, joinProject }) {
   const [project, setProject] = useState(null)
+  let params = useParams();
+
 
   const fetchProjectCallback = useCallback(() => {
-    fetch(`/projects/${projectId}`, {
+    fetch(`/projects/${params.projectId}`, {
       credentials: 'include'
     })
       .then(res => res.json())
       .then(project => setProject(project))
-  }, [projectId])
+  }, [params.projectId])
   
   useEffect(() => {
     fetchProjectCallback()
@@ -36,24 +38,25 @@ function ProjectDetail({ projectId, leaveProject, joinProject }) {
     }
   }
 
-  if(project){ 
+  if(!project){ return <div></div>}
   
   return (
     <div>
+      Project
       <h1>{project.name}</h1>
       {leaveOrJoinButton(project)}
       <h2>Members</h2>
       <ul>
-        {project.members?.map(member => <li key={member.id}>{member.name}</li>)}
+        {project.members?.map(member => <li>{member.email}</li>)}
       </ul>
       <h2>Tasks</h2>
       <ul>
-        {project.tasks?.map((task) => <li key={task.id}><Link to={`/my-tasks/${task.id}`}>{task.title}</Link></li>)}
+        {project.tasks?.map((task) => <li><Link to={`/my-tasks/${task.id}`}>{task.title}</Link></li>)}
       </ul>
     </div>
   )
   }
   
-}
+
 
 export default ProjectDetail
