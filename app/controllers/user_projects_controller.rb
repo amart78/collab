@@ -4,11 +4,11 @@ class UserProjectsController < ApplicationController
       end
     
       def create
-        user_project = current_user.user_projects.new(user_project_params)
+        user_project = current_user.user_projects.build(user_project_params)
         if user_project.save
           render json: user_project, status: :created
-        else
-          render json: user_project.errors, status: :unprocessable_entity
+        else 
+          render json: user_project.errors.full_messages, status: :unprocessable_entity
         end
       end
     

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route,  } from 'react-router-dom'
 import TasksList from './TasksList'
-import TaskDetail from './TaskDetail'
+import TaskCard from './TaskCard'
 
-function TasksContainer() {
+function TasksPage() {
   const [tasks, setTasks] = useState([])
   const [projects, setProjects] = useState([])
   
@@ -28,9 +28,6 @@ function TasksContainer() {
     })
       .then(res => {
         if (res.ok) {
-          // if the task is the one we just removed an assign 
-          // for, set its user_task property in state to 
-          // undefined; If not, leave the task as it is
           const updatedTasks = tasks.map((task) => {
             if (task.id === taskId) {
               return {
@@ -59,7 +56,7 @@ function TasksContainer() {
       })
   }
   const assignToTask = (taskId) => {
-    taskId.preventDefault()
+    
     console.log(taskId)
     return fetch('/user_tasks', {
       method: 'POST',
@@ -79,9 +76,7 @@ function TasksContainer() {
         }
       })
       .then(userTask => {
-        // if the task is the one we just assign'd to
-        // add a user_task property in state and set
-        // it to the userTask; if not, leave it as is
+ 
         const updatedTasks = tasks.map((task) => {
           if (task.id === taskId) {
             return {
@@ -100,7 +95,7 @@ function TasksContainer() {
     return fetch("/tasks", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       credentials: 'include',
       body: JSON.stringify(formData)
@@ -119,9 +114,25 @@ function TasksContainer() {
 
   return (
       <div>
+        {/* <Box sx={{ flexGrow: 1 }}>
+            <Grid 
+                container 
+                spacing={{ xs: 2, md: 3 }} 
+                columns={{ xs: 4, sm: 8, md: 12 }}
+            >
+
+            {searchResults.map( ([_, villager]) => {
+            return (
+                <VillagerCard key = {villager.id} villager ={villager} addFavorite= {addFavorite}/>
+                )
+            }) 
+        }
+            </Grid>
+        </Box> */}
+
         <Routes>
           <Route
-            exact path="/my-tasks/*" element=
+            exact path="/*" element=
               {<TasksList
                 tasks={tasks}
                 projects={projects}
@@ -133,17 +144,14 @@ function TasksContainer() {
           />
           
           <Route
-            exact path="/my-tasks/:id"
-            render={({ match }) => {
-              return (
-              <TaskDetail
-                taskId={match.params.id}
+            exact path="/:id"
+            element={
+              <TaskCard
                 cancelTask={cancelTask}
                 removeAssignmentToTask={removeAssignmentToTask}
                 assignToTask={assignToTask}
               />
-              )
-            }}
+              }
           />
 
         </Routes>
@@ -151,4 +159,4 @@ function TasksContainer() {
   )
 }
 
-export default TasksContainer
+export default TasksPage

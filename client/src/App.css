@@ -1,33 +1,10 @@
-body {
-  background-color: #67a594;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url("https://s3.amazonaws.com/wordpress-production/wp-content/uploads/sites/19/2016/03/10-Ways-Project-Managers-Stay-Organized-800x400.jpg");
-}
 .App {
-  background-color: rgba(255,255,255, 0.95);
-  width: 80%;
-  margin: 2em auto;
-  padding: 2em;
-  min-height: 100vh;
+  text-align: center;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-form input, form textarea {
-  width: 16rem;
-  padding: 0.5rem;
-  max-width: 85%;
-}
-
-form label {
-  display: inline-block;
-  width: 6rem;
-  vertical-align: top;
-  padding: 0.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
