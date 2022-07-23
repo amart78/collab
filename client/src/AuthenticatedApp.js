@@ -1,43 +1,30 @@
 import './App.css';
-import ProjectsContainer from './components/ProjectsContainer'
-import TasksContainer from './components/TasksContainer'
-import { Routes, Route, Link, useNavigate,  } from 'react-router-dom'
+import ProjectsPage from './components/ProjectsPage'
+import TasksPage from './components/TasksPage'
+import { Routes, Route, useNavigate,  } from 'react-router-dom'
+import AuthNav from './components/AuthNav';
 
 function AuthenticatedApp({ currentUser, setCurrentUser }) {
-  const navigate = useNavigate()
   
-  const handleLogout = () => {
-    fetch(`/logout`, {
-      method: 'DELETE',
-      credentials: 'include'
-    })
-      .then(res => {
-        if (res.ok) {
-          setCurrentUser(null)
-          navigate('/')
-        }
-      })
-  }
+const navigate = useNavigate()
+  
   return (
+    <>
+      <AuthNav setCurrentUser={setCurrentUser}/>
       <div className="App">
-        <nav>
-          <span>
-            <Link to="my-projects">Projects</Link>{" - "}
-            <Link to="my-tasks">Tasks</Link>
-          </span>
-          <span>Logged in as {currentUser.name} <button onClick={handleLogout}>Logout</button></span>
-        </nav>
         <Routes>
+
           <Route path="/my-projects/*" element=
-            {<ProjectsContainer />}
+            {<ProjectsPage />}
           />
 
           <Route path="/my-tasks/*" element=
-            {<TasksContainer />}
+            {<TasksPage />}
           />
           
         </Routes>
       </div> 
+      </>
   );
 }
 

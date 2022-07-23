@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {useParams, Routes, Route,  } from 'react-router-dom'
 import ProjectsList from './ProjectsList'
-import ProjectDetail from './ProjectDetail'
+import ProjectCard from './ProjectCard'
 
-function ProjectsContainer() {
+function ProjectsPage() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ function ProjectsContainer() {
           <Route
             path=":projectId"
             element={
-                <ProjectDetail
+                <ProjectCard
                   leaveProject={leaveProject}
                   joinProject={joinProject}
                 />
@@ -100,4 +100,4 @@ function ProjectsContainer() {
   )
 }
 
-export default ProjectsContainer
+export default ProjectsPage
