@@ -15,8 +15,6 @@ With Collab, I aim to promote an intuitive interface that empowers the organizat
 <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" title="HTML5" alt="HTML" width="75" height="75"/>&nbsp;
 <img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-plain-wordmark.svg" title="CSS3" alt="CSS" width="75" height="75"/>&nbsp;
 <img src="https://github.com/devicons/devicon/blob/master/icons/postgresql/postgresql-original-wordmark.svg" title="SQL" alt="SQL" width="75" height="75"/>&nbsp;
-<img src="https://github.com/devicons/devicon/blob/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" title="AWS" alt="AWS" height="75"/>&nbsp;
-<img src="https://www.pulumi.com/logos/brand/twitter-card.png" title="Pulumi" alt="Pulumi" height="75"/>&nbsp;
  
  ## Video Demo
  [![collab_demo](https://user-images.githubusercontent.com/97429214/200757625-98196ecf-247d-40fc-a9f2-bcfadf862bda.png)](https://www.youtube.com/watch?v=ypAD_oB4Ems)
