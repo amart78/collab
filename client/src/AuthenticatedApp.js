@@ -1,12 +1,10 @@
 import './App.css';
 import ProjectsPage from './components/ProjectsPage'
 import TasksPage from './components/TasksPage'
-import { Routes, Route, useNavigate,  } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import AuthNav from './components/AuthNav';
 
-function AuthenticatedApp({ currentUser, setCurrentUser }) {
-  
-const navigate = useNavigate()
+function AuthenticatedApp({ setCurrentUser }) {
   
   return (
     <>

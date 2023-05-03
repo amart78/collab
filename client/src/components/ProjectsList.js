@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Routes, Route, Link, useNavigate,  } from 'react-router-dom'
+import {useNavigate,  } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
@@ -7,54 +7,14 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Column, Row, Item } from '@mui-treasury/components/flex';
-import { Info, InfoSubtitle, InfoTitle } from '@mui-treasury/components/info';
+import { Info, InfoTitle } from '@mui-treasury/components/info';
 import { useApexInfoStyles } from '@mui-treasury/styles/info/apex';
 import { useGraphicBtnStyles } from '@mui-treasury/styles/button/graphic';
-import { createTheme } from '@material-ui/core/styles'
-import { CardActionArea } from '@mui/material';
-
-
+import AddProjectForm from './AddProjectForm';
+import { Fab, Modal} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
-
-  // functionality------------------------------------------------------------------------------
-  const [name, setName] = useState('')
-  const [image, setImage] = useState('')
-
-  const leaveOrJoinButton = (project, styles, btnStyles) => {
-    if (project.user_project) {
-      return (
-        <Button
-        className={styles.join}
-        classes={btnStyles}
-        variant={'contained'}
-        color={'primary'}
-        disableRipple
-        onClick={() => leaveProject(project.user_project.id)}
-      >Leave group</Button>
-      )
-    } else {
-      return (
-        <Button
-        className={styles.join}
-        classes={btnStyles}
-        variant={'contained'}
-        color={'primary'}
-        disableRipple
-        onClick={() => joinProject(project.id)}
-      >Join group</Button>
-      )
-    }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    createProject({name, image})
-  }
-
-  const navigate = useNavigate();
-  // functionality------------------------------------------------------------------------------
-
   const useStyles = makeStyles(() => ({
     root: {
       height: '100%',
@@ -107,12 +67,41 @@ function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
       },
     },
   }));
+  
+  const [open, setOpen] = useState(false);
+  
+  const navigate = useNavigate();
 
-  const CustomCard = ({
+  const leaveOrJoinButton = (project, styles, btnStyles) => {
+    if (project.user_project) {
+      return (
+        <Button
+        className={styles.join}
+        classes={btnStyles}
+        variant={'contained'}
+        color={'primary'}
+        disableRipple
+        onClick={() => leaveProject(project.user_project.id)}
+      >Leave group</Button>
+      )
+    } else {
+      return (
+        <Button
+        className={styles.join}
+        classes={btnStyles}
+        variant={'contained'}
+        color={'primary'}
+        disableRipple
+        onClick={() => joinProject(project.id)}
+      >Join group</Button>
+      )
+    }
+  }
+
+  const ProjectSummaryCard = ({
     thumbnail,
     title,
     project,
-    // subtitle,
     description,
     joined = false,
   }) => {
@@ -125,7 +114,6 @@ function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
             <Avatar className={styles.logo} variant={'rounded'} src={thumbnail} />
             <Info position={'middle'} useStyles={useApexInfoStyles}>
               <InfoTitle >{title}</InfoTitle>
-              {/* <InfoSubtitle>{subtitle}</InfoSubtitle> */}
             </Info>
           </Row>
           <Box
@@ -157,19 +145,19 @@ function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
       </div>
     );
   };
-  
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
       <h1>Projects</h1>
-      
-        <Grid container spacing={2}>
+        <Grid container spacing={2} >
         {projects.map(project => (
-          <Grid item xs={12} md={6} lg={4}>
-            <CustomCard
+          <Grid item xs={12} md={6} lg={4}key={project.id}>
+            <ProjectSummaryCard
               project={project}
               thumbnail={project.image}
               title={project.name}
-              // subtitle={`Created on ${project.created_at}`}
               description={
                 <>
                   <b>Alexis</b> and others are members of this
@@ -180,44 +168,19 @@ function ProjectsList({ projects, leaveProject, joinProject, createProject }) {
           </Grid>
           ))}
         </Grid>
-
-
-
-
-      {/* og code */}
-      {/* {projects.map(project => (
-
-
-        <p key={project.id}>
-          <Link to={`${project.id}`}>
-            {project.name}
-          </Link> 
-            --- {leaveOrJoinButton(project)}
-        </p>
-      ))} */}
-
-
-      {/* form */}
-
-
-      <h3>Add Project</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name </label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          name="name"
-        />
-        <label htmlFor="name"> Image </label>
-        <input
-          type="text"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          name="image"
-        />
-        {" "}<button type="submit">Add Project</button>
-      </form>
+     {/* Add Project Button and Form ------------------- */}
+          <Box sx={{ position: 'absolute', bottom: 16, right: 16 }}>
+            <Fab color="primary" variant="extended" aria-label="add" onClick={() => setOpen(true)}>
+              <AddIcon /> Add a Project
+            </Fab>
+          </Box>
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, maxWidth: 400 }}>
+              <AddProjectForm 
+                createProject={createProject} 
+              />
+          </Box>
+        </Modal>
     </div>
   )
 }
