@@ -17,5 +17,7 @@ With Collab, I aim to promote an intuitive interface that empowers the organizat
 <img src="https://github.com/devicons/devicon/blob/master/icons/postgresql/postgresql-original-wordmark.svg" title="SQL" alt="SQL" width="75" height="75"/>&nbsp;
  
  ## Video Demo
+ ***NOTE: Styling updates have been made since the demo below. When clicking into an individual project, the project detail card that appears is larger and centered on the page. The Add Project and Add Task Forms are now in a stylized card that appears in the middle of the page with the background darkended upon the click of a (+) button that is at the lower right hand corner of their respective pages.
+ 
  [![collab_demo](https://user-images.githubusercontent.com/97429214/200757625-98196ecf-247d-40fc-a9f2-bcfadf862bda.png)](https://www.youtube.com/watch?v=ypAD_oB4Ems)
  
