@@ -17,6 +17,8 @@ function Signup({onLogin}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +31,7 @@ function Signup({onLogin}) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, name, image }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
@@ -42,11 +44,19 @@ function Signup({onLogin}) {
   }
   
   function handleEmail(e){
-    setEmail( e.target.value);
+    setEmail(e.target.value);
   }
 
   function handlePassword(e){
     setPassword(e.target.value);
+  }
+
+  function handleName(e){
+    setName(e.target.value);
+  }
+
+  function handleImage(e){
+    setImage(e.target.value);
   }
 
   return (
@@ -84,6 +94,30 @@ function Signup({onLogin}) {
               Signup
             </Typography>
             <Box component="form" noValidate sx={{ mt: 1 }}>
+              <div>
+            <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                onChange={handleName}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="image"
+                label="Profile Picture"
+                name="image"
+                autoComplete="image"
+                autoFocus
+                onChange={handleImage}
+              />
+              </div>
               <TextField
                 margin="normal"
                 required
@@ -139,7 +173,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://collab.com/">
+      <Link color="inherit" href="http://localhost:4000/">
         Collab
       </Link>{' '}
       {new Date().getFullYear()}

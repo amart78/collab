@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function AuthNav({ currentUser, setCurrentUser  }) {
     const [value, setValue] = React.useState(0);
   
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
       setValue(newValue);
     };
     const handleLogout = () => {
@@ -58,8 +58,7 @@ function AuthNav({ currentUser, setCurrentUser  }) {
               href="/my-projects"
               sx={{ my: 1, mx: 1.5, ml:2 }}
               underline="hover"
-            
-            >
+          >
               Projects
             </Link>
             <Link

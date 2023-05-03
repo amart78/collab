@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {useParams, Routes, Route,  } from 'react-router-dom'
+import {Routes, Route,  } from 'react-router-dom'
 import ProjectsList from './ProjectsList'
 import ProjectCard from './ProjectCard'
 
@@ -101,3 +101,4 @@ function ProjectsPage() {
 }
 
 export default ProjectsPage
+
